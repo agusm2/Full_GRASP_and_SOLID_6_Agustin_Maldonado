@@ -62,5 +62,31 @@ namespace Full_GRASP_And_SOLID
 
             return result;
         }
+
+        public int GetCookTime()
+        {
+            int result = 0;
+            foreach (BaseStep step in this.steps)
+            {
+                result += step.Time;
+            }
+
+            return result;
+        }
+
+        private bool cooked;
+
+        public bool Cooked { get; private set; } = false;
+        
+        public void Cook()
+        {
+            CountdownTimer timer = new CountdownTimer();
+            timer.Register(this.GetCookTime(), new Adaptador(this));
+        }
+
+        public void SetCooked()
+        {
+            this.Cooked = true;
+        }
     }
 }
